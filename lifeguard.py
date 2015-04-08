@@ -22,7 +22,11 @@ def hello_world():
 @app.route('/location', methods=['POST', 'GET'])
 def location():
     device = request.args.get('p')
-    owner = device_owners[device]
+
+    if device in device_owners:
+        owner = device_owners[device]
+    else:
+        owner = 'Unknown owner for device: ' + device
 
     # get time in tz
     posix_timestamp = request.args.get('t')
@@ -38,5 +42,5 @@ def location():
 
 
 if __name__ == '__main__':
-    app.debug = True
+    app.debug = False
     app.run()
