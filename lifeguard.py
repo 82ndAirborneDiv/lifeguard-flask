@@ -22,7 +22,7 @@ def hello_world():
 @app.route('/location', methods=['POST', 'GET'])
 def location():
     device = request.args.get('p')
-    owner = get_user(device)
+    owner = device_owners[device]
 
     # get time in tz
     posix_timestamp = request.args.get('t')
@@ -31,13 +31,9 @@ def location():
     latitude = request.args.get('lat')
     longitude = request.args.get('long')
 
-    result = 'Received Location update: Timestamp = ' + dt.strftime('%Y-%m-%d %H:%M:%S %Z%z') + ' Latitude = ' + latitude + ' Longitude = ' + longitude + ' Person =  ' + owner
+    result = 'Received Location update: Time = ' + dt.strftime('%Y-%m-%d %H:%M:%S %Z%z') + ' Latitude = ' + latitude + ' Longitude = ' + longitude + ' Person =  ' + owner
     print(result)
     return result
-
-
-def get_user(device_id):
-    return device_owners[device_id]
 
 
 if __name__ == '__main__':
