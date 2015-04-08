@@ -26,14 +26,15 @@ def location():
 
     # get time in tz
     posix_timestamp = request.args.get('t')
-    dt = datetime.fromtimestamp(posix_timestamp, tz)
+    dt = datetime.fromtimestamp(float(posix_timestamp), tz)
 
     latitude = request.args.get('lat')
     longitude = request.args.get('long')
 
-    result = 'Received Location update: Time = ' + dt.strftime('%Y-%m-%d %H:%M:%S %Z%z') + ' Latitude = ' + latitude + ' Longitude = ' + longitude + ' Person =  ' + owner
+    result = 'Received Location update: Time = ' + dt.strftime('%Y-%m-%d %I:%M:%S %p') + ' Latitude = ' + latitude + ' Longitude = ' + longitude + ' Person =  ' + owner
     print(result)
     return result
+
 
 
 if __name__ == '__main__':
