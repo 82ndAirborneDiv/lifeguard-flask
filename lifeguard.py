@@ -1,5 +1,8 @@
 from flask import Flask
 from flask import request
+from datetime import datetime
+
+import pytz
 
 app = Flask(__name__)
 device_owners = {
@@ -9,6 +12,9 @@ device_owners = {
     '5C4FB776-FC26-45CA-B9AC-F0B89F7E1D36': 'iPhone 6 Simulator'
 
 }
+tz = pytz.timezone('America/New_York')
+
+
 @app.route('/')
 def hello_world():
     return 'Hello from Lifeguard location server!\n'
@@ -16,11 +22,18 @@ def hello_world():
 @app.route('/location', methods=['POST', 'GET'])
 def location():
     device = request.args.get('p')
-    timestamp = request.args.get('t')
-    lat = request.args.get('lat')
-    long = request.args.get('long')
-    print('Received Location update: Timestamp = ' + timestamp + ' Latitude = ' + lat + ' Longitude = ' + long + ' Device ID ' + device)
-    return 'Date time stamp = ' + timestamp + ' Latitude = ' + lat + ' Longitude = ' + long + ' Device ID ' + device + '\n'
+    owner = get_user(device)
+
+    # get time in tz
+    posix_timestamp = request.args.get('t')
+    dt = datetime.fromtimestamp(posix_timestamp, tz)
+
+    latitude = request.args.get('lat')
+    longitude = request.args.get('long')
+
+    result = 'Received Location update: Timestamp = ' + dt.strftime('%Y-%m-%d %H:%M:%S %Z%z') + ' Latitude = ' + latitude + ' Longitude = ' + longitude + ' Person =  ' + owner
+    print(result)
+    return result
 
 
 def get_user(device_id):
