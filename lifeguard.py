@@ -9,7 +9,7 @@ device_owners = {
     'BFFE2480-0A6A-485A-8056-8EA2FDF3EFC4': 'Greg Ledbetter',
     '9D2A19B1-4E04-4BAA-87F4-13C0A8DACC97': 'Jacob Ledbetter',
     '77A9E170-4A56-4A8A-9E01-370128A3CD02': 'Nick Ledbetter',
-    '5C4FB776-FC26-45CA-B9AC-F0B89F7E1D36': 'iPhone 6 Simulator'
+    'ED33EFF5-04B3-4458-A5CF-64E774540AB9': 'Pam Ledbetter'
 
 }
 tz = pytz.timezone('America/New_York')
