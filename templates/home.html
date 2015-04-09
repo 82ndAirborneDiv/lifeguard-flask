@@ -6,10 +6,8 @@
         </br>
         <h4>{{owner}}'s Location</h4>
           {% with map = owner_map.map %}
-            {{map.html}}
-            {{map.js}}
+              {{googlemap(owner_map.name, owner_map.latitude, owner_map.longitude)}}
           {% endwith %}
-
           </br>
       {% endfor %}
   </div>
