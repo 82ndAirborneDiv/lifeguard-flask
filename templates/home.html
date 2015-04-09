@@ -2,11 +2,13 @@
 {% block content %}
   <div class="jumbo">
     <h2>IIU Location Services</h2>
-      {% for owner, map in owner_maps.iteritems() %}
+      {% for owner, owner_map in owner_maps.iteritems() %}
         </br>
         <h4>{{owner}}'s Location</h4>
+          {% with map = owner_map.map %}
             {{map.html}}
             {{map.js}}
+          {% endwith %}
 
           </br>
       {% endfor %}
