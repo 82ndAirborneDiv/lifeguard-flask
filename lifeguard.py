@@ -26,14 +26,16 @@ device_owners = {
     'BFFE2480-0A6A-485A-8056-8EA2FDF3EFC4': 'Greg',
     'A6AF418B-B6D3-44DF-A634-7F21E42F8496': 'Jacob',
     '043E6CF8-C979-44EE-8266-644CDF93B902': 'Nick',
-    'ED33EFF5-04B3-4458-A5CF-64E774540AB9': 'Pam'
+    'ED33EFF5-04B3-4458-A5CF-64E774540AB9': 'Pam',
+    'FEA35E1F-6B61-4E33-AE9E-16855E7EF6CA': 'Tom'
 
 }
 owner_maps = {
     'Greg': PersonMap('Greg'),
     'Pam': PersonMap('Pam'),
     'Jacob': PersonMap('Jacob'),
-    'Nick': PersonMap('Nick')
+    'Nick': PersonMap('Nick'),
+    'Tom': PersonMap('Tom')
 }
 
 
