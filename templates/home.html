@@ -4,7 +4,7 @@
     <h2>IIU Location Services</h2>
       {% for owner, owner_map in owner_maps.iteritems() %}
         </br>
-        <a href="http://maps.google.com/maps?q={{ owner_map.latitude }},{{  owner_map.latitude }}+(My+Point)&z=15&ll={{ owner_map.latitude }},{{  owner_map.latitude }}">{{owner}}'s Location</a>
+        <a href="http://maps.google.com/maps?q={{ owner_map.latitude }},{{  owner_map.longitude }}+(My+Point)&z=15&ll={{ owner_map.latitude }},{{  owner_map.longitude }}">{{owner}}'s Location</a>
           </br>
       {% endfor %}
   </div>
