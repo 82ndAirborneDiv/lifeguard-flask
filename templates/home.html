@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block content %}
+  <div class="jumbo">
+    <h2>IIU Location Services</h2>
+      {% for owner, map in owner_maps.iteritems() %}
+        </br>
+        <h4>{{owner}}'s Location</h4>
+            {{map.html}}
+            {{map.js}}
+
+          </br>
+      {% endfor %}
+  </div>
+{% endblock %}
