@@ -69,9 +69,9 @@ def location():
         owner_map = owner_maps[owner]
         owner_map.update_location(latitude, longitude)
     else:
-        owner = 'Unknown owner for device: ' + device
+        owner = 'unknown (device: ' + device + ')'
 
-    result = 'Received Location update: Time = ' + dt.strftime('%Y-%m-%d %I:%M:%S %p') + ' Latitude = ' + latitude + ' Longitude = ' + longitude + ' Person =  ' + owner
+    result = 'Lifeguard Update at ' + dt.strftime('%Y-%m-%d %I:%M:%S %p') + ' for ' + owner + ': ' + latitude + ',' + longitude
     print(result)
     return result
 
