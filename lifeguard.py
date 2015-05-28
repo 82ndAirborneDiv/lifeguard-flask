@@ -71,7 +71,7 @@ def location():
     else:
         owner = 'unknown (device: ' + device + ')'
 
-    result = 'Lifeguard Update at ' + dt.strftime('%Y-%m-%d %I:%M:%S %p') + ' for ' + owner + ': ' + latitude + ',' + longitude
+    result = 'Lifeguard update at ' + dt.strftime('%Y-%m-%d %I:%M:%S %p') + ' for ' + owner + ': ' + latitude + ',' + longitude
     print(result)
     return result
 
