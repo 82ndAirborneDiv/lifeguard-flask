@@ -60,7 +60,7 @@ def location():
     device = request.args.get('p')
     # get time in tz
     posix_timestamp = request.args.get('t')
-    dt = datetime.fromtimestamp(float(posix_timestamp), tz)s
+    dt = datetime.fromtimestamp(float(posix_timestamp), tz)
     latitude = request.args.get('lat')
     longitude = request.args.get('long')
 
@@ -104,7 +104,8 @@ def location():
         owner = 'unknown (device: ' + device + ')'
 
     result = 'Lifeguard visit update at ' + dt.str + ' for ' + owner + ': ' + 'arrived ' + arrive_str + \
-             ' departed ' + depart_str + latitude + ',' + longitude
+             'departed ' + depart_str + 'at ' + latitude + ',' + longitude
+
     print(result)
     return result
 
