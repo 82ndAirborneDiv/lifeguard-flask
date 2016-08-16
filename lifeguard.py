@@ -60,7 +60,7 @@ def location():
     device = request.args.get('p')
     # get time in tz
     posix_timestamp = request.args.get('t')
-    dt = datetime.fromtimestamp(float(posix_timestamp), tz)
+    dt = datetime.fromtimestamp(float(posix_timestamp), tz)s
     latitude = request.args.get('lat')
     longitude = request.args.get('long')
 
@@ -71,9 +71,43 @@ def location():
     else:
         owner = 'unknown (device: ' + device + ')'
 
-    result = 'Lifeguard update at ' + dt.strftime('%Y-%m-%d %I:%M:%S %p') + ' for ' + owner + ': ' + latitude + ',' + longitude
+    result = 'Lifeguard location update at ' + dt.strftime('%Y-%m-%d %I:%M:%S %p') + ' for ' + owner + ': ' + latitude + ',' + longitude
     print(result)
     return result
+
+
+@app.route('/visit', methods=['POST', 'GET'])
+def location():
+
+    device = request.args.get('p')
+    # get time in tz
+    posix_timestamp = request.args.get('t')
+    dt = datetime.fromtimestamp(float(posix_timestamp), tz)
+    dt_str = dt.strftime('%Y-%m-%d %I:%M:%S %p')
+
+    latitude = request.args.get('lat')
+    longitude = request.args.get('long')
+    arrive = request.args.get('arrive')
+    arrive_dt = datetime.fromtimestamp(float(arrive), tz)
+    arrive_str = arrive_dt.strftime('%Y-%m-%d %I:%M:%S %p')
+
+    depart = request.args.get('depart')
+    depart_dt = datetime.fromtimestamp(float(depart), tz)
+    depart_str = depart_dt.strftime('%Y-%m-%d %I:%M:%S %p')
+
+
+    if device in device_owners:
+        owner = device_owners[device]
+        owner_map = owner_maps[owner]
+        owner_map.update_location(latitude, longitude)
+    else:
+        owner = 'unknown (device: ' + device + ')'
+
+    result = 'Lifeguard visit update at ' + dt.str + ' for ' + owner + ': ' + 'arrived ' + arrive_str + \
+             ' departed ' + depart_str + latitude + ',' + longitude
+    print(result)
+    return result
+
 
 
 if __name__ == '__main__':
