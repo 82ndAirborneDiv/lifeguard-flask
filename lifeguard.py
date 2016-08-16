@@ -44,6 +44,7 @@ app = Flask(__name__)
 GoogleMaps(app)
 tz = pytz.timezone('America/New_York')
 
+
 @app.route('/')
 def home():
     return render_template('home.html', owner_maps=owner_maps)
@@ -77,7 +78,7 @@ def location():
 
 
 @app.route('/visit', methods=['POST', 'GET'])
-def location():
+def visit():
 
     device = request.args.get('p')
     # get time in tz
@@ -95,7 +96,6 @@ def location():
     depart_dt = datetime.fromtimestamp(float(depart), tz)
     depart_str = depart_dt.strftime('%Y-%m-%d %I:%M:%S %p')
 
-
     if device in device_owners:
         owner = device_owners[device]
         owner_map = owner_maps[owner]
@@ -108,7 +108,6 @@ def location():
 
     print(result)
     return result
-
 
 
 if __name__ == '__main__':
