@@ -82,19 +82,12 @@ def visit():
 
     device = request.args.get('p')
     # get time in tz
-    posix_timestamp = request.args.get('t')
-    dt = datetime.fromtimestamp(float(posix_timestamp), tz)
-    dt_str = dt.strftime('%Y-%m-%d %I:%M:%S %p')
+    timestamp = request.args.get('t')
 
     latitude = request.args.get('lat')
     longitude = request.args.get('long')
     arrive = request.args.get('arrive')
-    arrive_dt = datetime.fromtimestamp(float(arrive), tz)
-    arrive_str = arrive_dt.strftime('%Y-%m-%d %I:%M:%S %p')
-
     depart = request.args.get('depart')
-    depart_dt = datetime.fromtimestamp(float(depart), tz)
-    depart_str = depart_dt.strftime('%Y-%m-%d %I:%M:%S %p')
 
     if device in device_owners:
         owner = device_owners[device]
@@ -103,8 +96,8 @@ def visit():
     else:
         owner = 'unknown (device: ' + device + ')'
 
-    result = 'Lifeguard visit update at ' + dt.str + ' for ' + owner + ': ' + 'arrived ' + arrive_str + \
-             'departed ' + depart_str + 'at ' + latitude + ',' + longitude
+    result = 'Lifeguard visit update at ' + timestamp + ' for ' + owner + ': ' + 'arrived ' + arrive + \
+             'departed ' + depart + 'at location ' + latitude + ',' + longitude
 
     print(result)
     return result
