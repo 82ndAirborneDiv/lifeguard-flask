@@ -24,19 +24,11 @@ class PersonMap:
 
 device_owners = {
     'D8E4557B-5FAE-45F2-87F6-341BAE2C64E0': 'Greg',
-    'A6AF418B-B6D3-44DF-A634-7F21E42F8496': 'Jacob',
-    '043E6CF8-C979-44EE-8266-644CDF93B902': 'Nick',
-    'ED33EFF5-04B3-4458-A5CF-64E774540AB9': 'Pam',
-    'FEA35E1F-6B61-4E33-AE9E-16855E7EF6CA': 'Tom'
 
 }
 
 owner_maps = {
     'Greg': PersonMap('Greg'),
-    'Pam': PersonMap('Pam'),
-    'Jacob': PersonMap('Jacob'),
-    'Nick': PersonMap('Nick'),
-    'Tom': PersonMap('Tom')
 }
 
 
