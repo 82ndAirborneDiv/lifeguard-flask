@@ -80,7 +80,7 @@ def location():
 @app.route('/visit', methods=['POST', 'GET'])
 def visit():
 
-    device = request.args.get('p')
+    user = request.args.get('user')
     # get time in tz
     timestamp = request.args.get('t')
 
@@ -89,15 +89,14 @@ def visit():
     arrive = request.args.get('arrive')
     depart = request.args.get('depart')
 
-    if device in device_owners:
-        owner = device_owners[device]
-        owner_map = owner_maps[owner]
+    if user in owner_maps:
+        owner_map = owner_maps[user]
         owner_map.update_location(latitude, longitude)
     else:
-        owner = 'unknown (device: ' + device + ')'
+        user = 'Unknown user: ' + user
 
-    result = 'Lifeguard visit update at ' + timestamp + ' for ' + owner + ': ' + 'arrived ' + arrive + \
-             'departed ' + depart + 'at location ' + latitude + ',' + longitude
+    result = 'Lifeguard visit update at ' + timestamp + ' for ' + user + ': ' + ' arrived at ' + arrive + \
+             ', departed at ' + depart + ', at location ' + latitude + ',' + longitude
 
     print(result)
     return result
