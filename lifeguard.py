@@ -23,7 +23,7 @@ class PersonMap:
 
 
 device_owners = {
-    'D8E4557B-5FAE-45F2-87F6-341BAE2C64E0': 'Greg',
+    '3EF97176-375F-4FBF-8AA1-35A7860FAFB0': 'Greg',
 
 }
 
@@ -55,7 +55,7 @@ def location():
     posix_timestamp = request.args.get('t')
     dt = datetime.fromtimestamp(float(posix_timestamp), tz)
     latitude = request.args.get('lat')
-    longitude = request.args.get('long')
+    longitude = request.args.get('lng')
 
     if device in device_owners:
         owner = device_owners[device]
@@ -77,7 +77,7 @@ def visit():
     timestamp = request.args.get('t')
 
     latitude = request.args.get('lat')
-    longitude = request.args.get('long')
+    longitude = request.args.get('lng')
     arrive = request.args.get('arrive')
     depart = request.args.get('depart')
 
