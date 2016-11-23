@@ -69,6 +69,27 @@ def location():
     return result
 
 
+@app.route('/register', methods=['POST', 'GET'])
+def register_user():
+
+    device = request.args.get('p')
+    # get time in tz
+    posix_timestamp = request.args.get('t')
+    dt = datetime.fromtimestamp(float(posix_timestamp), tz)
+    userid = request.args.get('uid')
+
+    if device in device_owners:
+        owner = device_owners[device]
+        owner_map = owner_maps[owner]
+        owner_map.update_location(latitude, longitude)
+    else:
+        owner = 'unknown (device: ' + device + ')'
+
+    result = 'Lifeguard user registered with user name ' + userid
+    print(result)
+    return result
+
+
 @app.route('/visit', methods=['POST', 'GET'])
 def visit():
 
