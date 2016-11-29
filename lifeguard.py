@@ -1,8 +1,8 @@
 from flask import Flask, render_template
 from flask import request
 from datetime import datetime
-from flask.ext.googlemaps import GoogleMaps
-from flask.ext.googlemaps import Map
+from flask_googlemaps import GoogleMaps
+from flask_googlemaps import Map
 import pytz
 
 
