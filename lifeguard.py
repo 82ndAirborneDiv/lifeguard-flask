@@ -79,12 +79,15 @@ def register_user():
     posix_timestamp = request.args.get('t')
     dt = datetime.fromtimestamp(float(posix_timestamp), tz)
     user_id = request.args.get('uid')
+    latitude = request.args.get('lat')
+    longitude = request.args.get('long')
 
     if device in device_owners:
-        owner = device_owners[device]
-        owner_map = owner_maps[owner]
+        owner_maps[device_owners[device]].update_location(latitude, longitude, dt)
     else:
-        owner = 'unknown (device: ' + device + ')'
+        owner_maps[user_id] = PersonMap(user_id)
+        owner_maps[user_id].update_location(latitude, longitude, dt)
+        device_owners[device] = user_id
 
     result = 'Lifeguard user registered with user name ' + user_id
     print(result)
