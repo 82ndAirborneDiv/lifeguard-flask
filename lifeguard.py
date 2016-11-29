@@ -14,12 +14,14 @@ class PersonMap:
         self.map_id = name + '_map'
         self.map = Map(identifier=self.map_id, lat=self.latitude,
                        lng=self.longitude, markers=[(self.latitude, self.longitude)])
+        self.last_update = None
 
-    def update_location(self, lat, lon):
+    def update_location(self, lat, lon, dt=None):
         self.latitude = lat
         self.longitude = lon
         self.map = Map(identifier=self.map_id, lat=self.latitude,
                        lng=self.longitude, markers=[(self.latitude, self.longitude)])
+        self.last_update = dt
 
 
 device_owners = {
@@ -60,7 +62,7 @@ def location():
     if device in device_owners:
         owner = device_owners[device]
         owner_map = owner_maps[owner]
-        owner_map.update_location(latitude, longitude)
+        owner_map.update_location(latitude, longitude, dt)
     else:
         owner = 'unknown (device: ' + device + ')'
 
