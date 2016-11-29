@@ -5,7 +5,10 @@
             <h1>Testing Team</h1>
             {% for owner, owner_map in owner_maps.iteritems() %}
                 <br/>
-                <p class="lead"><a href="http://maps.google.com/maps?q={{ owner_map.latitude }},{{  owner_map.longitude }}+(My+Point)&z=15&ll={{ owner_map.latitude }},{{  owner_map.longitude }}">{{owner}}'s Location</a></p>
+                <p class="lead">
+                    <a href="http://maps.google.com/maps?q={{ owner_map.latitude }},{{  owner_map.longitude }}+(My+Point)&z=15&ll={{ owner_map.latitude }},{{  owner_map.longitude }}">{{owner}}'s Location</a>
+                    - last updated at {{ owner_map.last_update }}
+                </p>
                 <br/>
             {% endfor %}
         </div>
