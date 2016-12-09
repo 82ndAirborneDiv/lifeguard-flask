@@ -57,7 +57,7 @@ def location():
     posix_timestamp = request.args.get('t')
     dt = datetime.fromtimestamp(float(posix_timestamp), tz)
     latitude = request.args.get('lat')
-    longitude = request.args.get('long')
+    longitude = request.args.get('lng')
 
     if device in device_owners:
         owner = device_owners[device]
@@ -80,7 +80,7 @@ def register_user():
     dt = datetime.fromtimestamp(float(posix_timestamp), tz)
     user_id = request.args.get('uid')
     latitude = request.args.get('lat')
-    longitude = request.args.get('long')
+    longitude = request.args.get('lng')
 
     if device in device_owners:
         owner_maps[device_owners[device]].update_location(latitude, longitude, dt)
