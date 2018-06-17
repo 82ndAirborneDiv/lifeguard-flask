@@ -25,7 +25,7 @@ class PersonMap:
 
 
 device_owners = {
-    '3EF97176-375F-4FBF-8AA1-35A7860FAFB0': 'Greg',
+    '0529CF2B-AEBD-4E81-8DD0-A99DDCC4EA60': 'Greg',
 
 }
 
