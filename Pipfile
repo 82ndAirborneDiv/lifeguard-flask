@@ -9,6 +9,7 @@ flask-googlemaps = "*"
 pytz = "*"
 gunicorn = "*"
 datetime = "*"
+"jinja2" = "*"
 
 [dev-packages]
 
