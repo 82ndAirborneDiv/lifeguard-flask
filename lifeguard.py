@@ -30,7 +30,7 @@ device_owners = {
 }
 
 owner_maps = {
-    'Greg': PersonMap('Greg'),
+    'Greg': PersonMap('Greg L.'),
 }
 
 
