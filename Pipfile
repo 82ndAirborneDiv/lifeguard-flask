@@ -6,6 +6,9 @@ name = "pypi"
 [packages]
 flask = "*"
 flask-googlemaps = "*"
+pytz = "*"
+gunicorn = "*"
+datetime = "*"
 
 [dev-packages]
 
