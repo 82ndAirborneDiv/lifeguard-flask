@@ -119,6 +119,18 @@ def visit():
     return result
 
 
+# Waldo APIs
+@app.route('/devicecheckin', methods=['POST'])
+def device_check_in():
+    checkin_data = request.get_json()
+
+    device_id = checkin_data['id']
+    lat = checkin_data['lat']
+    lng = checkin_data['lng']
+    time = checkin_data['time']
+    mode = checkin_data['mode']
+
+
 if __name__ == '__main__':
     app.debug = True
     app.run()
