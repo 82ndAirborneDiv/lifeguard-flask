@@ -3,11 +3,11 @@
         <div class="starter-template">
 
             <h1>Testing Team</h1>
-            {% for owner, owner_map in owner_maps.items() %}
+            {% for device_id, device in devices.items() %}
                 <br/>
                 <p class="lead">
-                    <a href="http://maps.google.com/maps?q={{ owner_map.latitude }},{{  owner_map.longitude }}+(My+Point)&z=15&ll={{ owner_map.latitude }},{{  owner_map.longitude }}">{{owner}}'s Location</a>
-                    - last updated at {{ owner_map.last_update }}
+                    <a href="http://maps.google.com/maps?q={{ device.map.latitude }},{{  device.map.longitude }}+(My+Point)&z=15&ll={{ device.map.latitude }},{{  device.map.longitude }}">{{device.name}}'s Location</a>
+                    - last updated at {{ device.map.last_update }}
                 </p>
                 <br/>
             {% endfor %}

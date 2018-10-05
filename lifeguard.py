@@ -6,11 +6,30 @@ from flask_googlemaps import Map
 import pytz
 
 
-class PersonMap:
+app = Flask(__name__)
+GoogleMaps(app)
+tz = pytz.timezone('America/New_York')
+
+
+# Waldo APIs
+devices = {}
+
+
+@app.route('/')
+def home():
+    return render_template('home.html', devices=devices)
+
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+
+class UserMap:
     def __init__(self, name):
         self.name = name
-        self.latitude = 0.0
-        self.longitude = 0.0
+        self.latitude = 42.4343779
+        self.longitude = -83.9891627
         self.map_id = name + '_map'
         self.map = Map(identifier=self.map_id, lat=self.latitude,
                        lng=self.longitude, markers=[(self.latitude, self.longitude)])
@@ -24,102 +43,18 @@ class PersonMap:
         self.last_update = dt
 
 
-device_owners = {
-    '0529CF2B-AEBD-4E81-8DD0-A99DDCC4EA60': 'Greg',
+class Device:
+    def __init__(self, device_id, user_id, name):
+        self.device_id = device_id
+        self.name = name
+        self.user_id = user_id
+        self.map = UserMap(name)
 
-}
-
-owner_maps = {
-    'Greg': PersonMap('Greg L.'),
-}
-
-
-app = Flask(__name__)
-GoogleMaps(app)
-tz = pytz.timezone('America/New_York')
+    def update_device(self, user_id, name):
+        self.user_id = user_id
+        self.name = name
 
 
-@app.route('/')
-def home():
-    return render_template('home.html', owner_maps=owner_maps)
-
-
-@app.route('/about')
-def about():
-    return render_template('about.html')
-
-
-@app.route('/location', methods=['POST', 'GET'])
-def location():
-
-    device = request.args.get('p')
-    # get time in tz
-    posix_timestamp = request.args.get('t')
-    dt = datetime.fromtimestamp(float(posix_timestamp), tz)
-    latitude = request.args.get('lat')
-    longitude = request.args.get('lng')
-
-    if device in device_owners:
-        owner = device_owners[device]
-        owner_map = owner_maps[owner]
-        owner_map.update_location(latitude, longitude, dt)
-    else:
-        owner = 'unknown (device: ' + device + ')'
-
-    result = 'Lifeguard location updated at ' + dt.strftime('%Y-%m-%d %I:%M:%S %p') + ' for ' + owner + ': ' + latitude + ',' + longitude
-    print(result)
-    return result
-
-
-@app.route('/register', methods=['POST', 'GET'])
-def register_user():
-
-    device = request.args.get('p')
-    # get time in tz
-    posix_timestamp = request.args.get('t')
-    dt = datetime.fromtimestamp(float(posix_timestamp), tz)
-    user_id = request.args.get('uid')
-    latitude = request.args.get('lat')
-    longitude = request.args.get('lng')
-
-    if device in device_owners:
-        owner_maps[device_owners[device]].update_location(latitude, longitude, dt)
-    else:
-        owner_maps[user_id] = PersonMap(user_id)
-        owner_maps[user_id].update_location(latitude, longitude, dt)
-        device_owners[device] = user_id
-
-    result = 'Lifeguard user registered with user name ' + user_id
-    print(result)
-    return result
-
-
-@app.route('/visit', methods=['POST', 'GET'])
-def visit():
-
-    user = request.args.get('user')
-    # get time in tz
-    timestamp = request.args.get('t')
-
-    latitude = request.args.get('lat')
-    longitude = request.args.get('lng')
-    arrive = request.args.get('arrive')
-    depart = request.args.get('depart')
-
-    if user in owner_maps:
-        owner_map = owner_maps[user]
-        owner_map.update_location(latitude, longitude)
-    else:
-        user = 'Unknown user: ' + user
-
-    result = 'Lifeguard visit update at ' + timestamp + ' for ' + user + ': ' + ' arrived at ' + arrive + \
-             ', departed at ' + depart + ', at location ' + latitude + ',' + longitude
-
-    print(result)
-    return result
-
-
-# Waldo APIs
 @app.route('/devicecheckin', methods=['POST'])
 def device_check_in():
     checkin_data = request.get_json()
@@ -128,7 +63,40 @@ def device_check_in():
     lat = checkin_data['lat']
     lng = checkin_data['lng']
     time = checkin_data['time']
-    mode = checkin_data['mode']
+    #mode = checkin_data['mode']
+    dt = datetime.fromtimestamp(float(time), tz)
+
+    result = "Waldo device check in API result: "
+
+    if device_id in devices:
+        device = devices[device_id]
+        map = device.map
+        map.update_location(lat, lng, dt)
+        result = result + "updating device {} with location (lat,ln) ({},{}) at {}.".format(device_id, lat, lng, dt)
+    else:
+        result = result + "error due to unknown device."
+    return result
+
+
+@app.route('/registration', methods=['POST'])
+def device_registration():
+    registration_data = request.get_json()
+
+    device_id = registration_data['deviceId']
+    user_id = registration_data['userId']
+    name = registration_data['name']
+
+    result = "Waldo user registration API result: "
+
+    if device_id in devices:
+        devices[device_id].update_device(user_id, name)
+        result = result + "updating device {} with user name {} with user ID of {}.".format(device_id, name, user_id)
+    else:
+        device = Device(device_id, user_id, name)
+        devices[device_id] = device
+        result = result + "adding device {} for user name {} with user ID of {}.".format(device_id, name, user_id)
+
+    return result
 
 
 if __name__ == '__main__':

@@ -1,1 +1,1 @@
-web: gunicorn lifeguard:app --log-file=-
+web: gunicorn lifeguard:app --timeout 10 --preload
