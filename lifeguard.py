@@ -95,7 +95,6 @@ def device_registration():
         device = Device(device_id, user_id, name)
         devices[device_id] = device
         result = result + "adding device {} for user name {} with user ID of {}.".format(device_id, name, user_id)
-
     return result
 
 

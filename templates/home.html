@@ -2,7 +2,11 @@
 {% block content %}
         <div class="starter-template">
 
-            <h1>Testing Team</h1>
+            {% if devices|length == 0 %}
+                <h1>Testing Team - no devices registered</h1>
+            {% else %}
+                <h1>Testing Team - {{ devices|length }} device(s) registered</h1>
+            {% endif %}
             {% for device_id, device in devices.items() %}
                 <br/>
                 <p class="lead">
